@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <EditText
+        android:id="@+id/urlEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_url"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/urlEditText"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="16dp"
+        android:text="Update"/>
+
+    <TextView
+        android:id="@+id/urlSendText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/send_url"
+        android:layout_margin="16dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/updateButton"
+        android:layout_margin="16dp">
+        <TableLayout
+            android:id="@+id/dataTable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </ScrollView>
+
+
+</LinearLayout>
