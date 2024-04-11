@@ -50,4 +50,4 @@ if($name === "com.sample.app") {
 
  **пример** | **аналог**
 ------------ | -------------
- ![example](https://i.ibb.co/fC0FgVB/example.png) | ![analogue](https://i.ibb.co/NNdfkXD/analogue.webp) 
+ ![example](https://i.ibb.co/gjgq3tq/example.webp) | ![analogue](https://i.ibb.co/NNdfkXD/analogue.webp) 
