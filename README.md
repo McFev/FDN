@@ -1,82 +1,53 @@
-# Notification Listener Service Example 
+# FDN (forward & deleting notifications)
 
-This example aims to teach you how to intercept notifications received by the Android System.
+<p align="center">
+  <img width="150" height="150" src="https://github.com/McFev/FDN/blob/main/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png?raw=true">
+</p>
+Это приложение, которое пересылает push-уведомление на указанный URL адрес.
 
-## (Updated 18.03.2021) 
-
-All the gradle files have been updated to the latest version available because people were having trouble getting it to compile. Some libraries were deprecated, so I updated them to the new ones, and the Android target version is now set to Android 10 instead of Android 5.
-
-TLDR; It's still working!!
-
-## What is a Notification
-https://developer.android.com/guide/topics/ui/notifiers/notifications.html
-
-As stated in the official Google Android Website, a notification is a message that can be displayed outside of the application normal User Interface
-
-<b>It should look similar to this:</b> 
-
-![alt text](https://i.stack.imgur.com/A0Y3K.jpg, "Notification")
-
-## How to Intercept a Notification
-In order to intercept a notification received by the android system we need to have a specific service running on the system's background. This service is called: <b>NotificationListenerService</b>. 
-
-What the service basically does is: It registers itseft to the android system and after that starts to listen to the calls from the system when new notifications are posted or removed, or their ranking changed. 
-
-When the <b>NotificationListenerService</b> identifies that a notification has been <b>posted</b>, <b>removed</b> or had its <b>ranking modified</b> it does what you told it to.
-
-### Steps you need to follow to build a NotificationListenerService
-
-<b>1.</b> Declare the Service in your AndroidManifest.xml file with the `BIND_NOTIFICATION_LISTENER_SERVICE` permission and include an intent filter with the `SERVICE_INTERFACE action`. 
-
-Like this:
-
-```xml
- <service android:name=".NotificationListener"
-          android:label="@string/service_name"
-          android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-     <intent-filter>
-         <action android:name="android.service.notification.NotificationListenerService" />
-     </intent-filter>
- </service>
+## Пример настроек
+`settings.json`
+```json
+{
+    "url": "https://sample.com/fdn?name=%s&title=%s&text=%s&subtext=%s&bigtext=%s&infotext=%s",
+    "applications": [
+        {"appName": "io.simplepush", "toDelete": true},
+        {"appName": "ru.cardsmobile.mw3", "toDelete": true},
+        {"appName": "ru.serebryakovas.lukoilmobileapp", "toDelete": true},
+        {"appName": "ru.instamart", "toDelete": false},
+        {"appName": "com.citymobil", "toDelete": false}
+    ]
+}
 ```
-<b>2.</b> Extend the NotificationListenerService class and implement at least the following methods:
+`index.php`
+```php
+<?php
+$name = $_GET["name"];
+$title = $_GET["title"];
+$text = $_GET["text"];
+$subtext = $_GET["subtext"];
+$bigtext = $_GET["bigtext"];
+$infotext = $_GET["infotext"];
 
-```java
-  public class NotificationListenerExampleService extends NotificationListenerService {
-  
-    @Override
-    public IBinder onBind(Intent intent) {
-        return super.onBind(intent);
-    }
-  
-    @Override
-    public void onNotificationPosted(StatusBarNotification sbn){
-      // Implement what you want here
-    }
-
-    @Override
-    public void onNotificationRemoved(StatusBarNotification sbn){
-      // Implement what you want here
-    }
-  }
+if($name === "com.sample.app") {
+	$message = '☁️ #' . str_replace('.', '', $name) . '\r\n\r\ntitle: `' . $title . '`\r\ntext: `' . $text . '`\r\nsubtext: `' . $subtext . '`\r\nbigtext: `' . $bigtext . '`\r\ninfotext: `' . $infotext . '`';
+    
+	$cmd = "/usr/bin/curl -X POST -H 'Content-Type: application/json' -d '{\"chat_id\": \"********\", \"text\": \"" . $message . "\", \"parse_mode\": \"markdown\"}' https://api.telegram.org/bot******/sendMessage";
+	$ret = exec($cmd);
+	echo $ret;
+}
+?>
 ```
 
-##  How This Example Works
-To illustrate the interception of notifications I've built a <b>NotificationListenerService</b> that does the following:
 
-It changes the <b>ImageView</b> present on the screen whenever it receives a notification from the following apps: 
+## Скриншот
+![screenshot](https://i.ibb.co/4KKGkHq/screenshot.png)
 
-* Facebook
-* Instagram
-* Whatsapp
+## Пример и аналог приложения
 
-#### Tested in:
-- 2016 on a ZenPhone2 (Android Lollipop 5.0)
-- 2021 on a Samsung Galaxy S7 (Android Oreo 8.0.0)
+* Сделано на основе [примера](https://github.com/Chagall/notification-listener-service-example).
+* [Аналог](https://play.google.com/store/apps/details?id=com.jojoagogogo.nf) из PlayMarket.
 
-### Here are some images of the app. working, so you can see what it looks like:
-
-![alt text](http://imgur.com/zkQ2S9P.jpg)
-![alt text](http://imgur.com/gSOYgZm.jpg)
-![alt text](https://i.imgur.com/8xvHoF2.jpg)
-![alt text](http://imgur.com/asSZT0n.jpg)
+ **пример** | **аналог**
+------------ | -------------
+ ![example](https://i.ibb.co/fC0FgVB/example.png) | ![analogue](https://i.ibb.co/NNdfkXD/analogue.webp) 
