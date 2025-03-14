@@ -41,7 +41,8 @@ if($name === "com.sample.app") {
 
 
 ## Скриншот
-![screenshot](https://i.ibb.co/4KKGkHq/screenshot.png)
+![screenshot](https://github.com/user-attachments/assets/9b59c85f-b8d9-4621-84b8-36a9cb6ae1e2)
+
 
 ## Пример и аналог приложения
 
@@ -50,4 +51,5 @@ if($name === "com.sample.app") {
 
  **пример** | **аналог**
 ------------ | -------------
- ![example](https://i.ibb.co/gjgq3tq/example.webp) | ![analogue](https://i.ibb.co/NNdfkXD/analogue.webp) 
+ ![example](https://github.com/user-attachments/assets/204ffe49-6e7f-47d9-90bd-83e1ad99cd13) | ![analogue](https://github.com/user-attachments/assets/94dcdf58-2767-498c-be48-51b00e9d1c57)
+
